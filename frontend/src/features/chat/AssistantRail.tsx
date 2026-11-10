@@ -1,0 +1,6 @@
+import { Icon } from '../../components/Icon'
+
+export function Rail({onAsk}:{onAsk:(prompt?:string)=>void}){
+ const prompts=['Find relaxing indie music for reading','Build a playlist for late-night coding','Recommend something energetic']
+ return <aside className="assistant-rail"><div className="rail-header"><span className="ai-avatar"><Icon name="sparkles" size={20}/></span><div><strong>MusicMind AI</strong><small>Your music companion</small></div><span className="dev-label">IN PROGRESS</span></div><div className="rail-feature"><div className="rail-orb"><Icon name="sparkles" size={42}/></div><div className="eyebrow accent">A LITTLE HELP FROM AI</div><h2>Not sure what<br/>to listen to?</h2><p>Describe your mood, a moment, or a feeling. MusicMind will help find your sound when the Agent is connected.</p></div><div><div className="eyebrow">TRY ASKING...</div><div className="rail-prompts">{prompts.map(prompt=><button onClick={()=>onAsk(prompt)} key={prompt}><Icon name="sparkles" size={16}/><span>{prompt}</span><Icon name="arrow-up-right" size={16}/></button>)}</div></div><div className="rail-note"><Icon name="shield" size={20}/><div><strong>You're in control</strong><p>Playlist changes will always need your approval.</p></div></div></aside>
+}

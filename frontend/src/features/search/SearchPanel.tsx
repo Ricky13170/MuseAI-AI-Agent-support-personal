@@ -1,14 +1,12 @@
-import { FeatureCard } from '../../components/FeatureCard'
+import { useState } from 'react'
+import { Icon } from '../../components/Icon'
+import { searchCatalog } from '../../lib/api'
 
-export function SearchPanel() {
-  return (
-    <FeatureCard feature="F001 · Discovery" title="Search music" className="search-card">
-      <p>Search provider-backed tracks by title or artist (coming later).</p>
-      <div className="input-row">
-        <input aria-label="Search music (not implemented)" placeholder="Track, artist or keyword..." disabled />
-        <button disabled>Search</button>
-      </div>
-      <p className="subtle">No catalog is connected. Results are not simulated.</p>
-    </FeatureCard>
-  )
+export function Discover({query}:{query:string}){
+ const [value,setValue]=useState(query)
+ const [submitted,setSubmitted]=useState('')
+ const [busy,setBusy]=useState(false)
+ const [error,setError]=useState('')
+ async function search(q:string){const s=q.trim();if(!s){setError('Enter a song, artist, or keyword first.');return};setValue(s);setSubmitted(s);setError('');setBusy(true);try{await searchCatalog(s);setError('Catalog response received; track result rendering is planned for F001.')}catch(e){setError(e instanceof Error?e.message:'Music provider unavailable.')}finally{setBusy(false)}}
+ return <div className="discover"><div className="page-head"><div className="eyebrow accent">YOUR NEXT DISCOVERY</div><h1>Find your <span>next favorite.</span></h1><p>Search by song, artist, or whatever you're in the mood for.</p></div><form className="discover-form" onSubmit={e=>{e.preventDefault();void search(value)}}><Icon name="search" size={24}/><input autoFocus aria-label="Search tracks and artists" placeholder="What do you want to listen to?" value={value} onChange={e=>{setValue(e.target.value);setError('')}}/><button className="btn primary" type="submit" disabled={busy}>{busy?'Searching':'Search'}<Icon name="arrow-right" size={16}/></button></form>{error&&<div className="notice" role="alert"><Icon name="info" size={20}/><div><strong>Music catalog is not connected</strong><p>{error}</p><small>Implement GET /api/music/search in the Python backend to enable verified results.</small></div><button className="icon-btn" onClick={()=>setError('')} aria-label="Dismiss"><Icon name="x" size={16}/></button></div>}<div className="content-section"><div className="section-heading"><div><div className="eyebrow">NOT SURE WHERE TO START?</div><h2>Start with an idea</h2></div></div><div className="search-chips">{['Lo-fi beats','Vietnamese indie','Jazz for work','Acoustic evenings'].map(q=><button key={q} onClick={()=>void search(q)}><Icon name="search" size={16}/>{q}<Icon name="arrow-up-right" size={16}/></button>)}</div></div><div className="discover-empty"><span className="disc-art"><Icon name="disc" size={68}/><i>♪</i></span><h3>{submitted?'No tracks to display yet':'A whole world of music awaits.'}</h3><p>{submitted?'The catalog endpoint is not implemented, so there are no verified tracks to show.':'Your search results will appear here when a licensed music catalog is connected. No tracks are fabricated for the preview.'}</p><span className="tiny-caption"><Icon name="info" size={14}/> REAL MUSIC DATA ONLY</span></div></div>
 }

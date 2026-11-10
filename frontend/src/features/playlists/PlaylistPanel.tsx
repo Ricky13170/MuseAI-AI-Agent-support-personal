@@ -1,10 +1,17 @@
-import { FeatureCard } from '../../components/FeatureCard'
+import { useEffect, useState } from 'react'
+import { Icon } from '../../components/Icon'
+import { Modal } from '../../components/Modal'
+import type { PlaylistLocal } from '../../types/ui'
 
-export function PlaylistPanel() {
-  return (
-    <FeatureCard feature="F006 · Library" title="Your playlists">
-      <p className="subtle">No playlists yet. Agent edits will require preview and approval.</p>
-      <button disabled>Create playlist</button>
-    </FeatureCard>
-  )
+export function Library({playlists,onCreate,onRename,onDelete,trigger,onConsumeTrigger,onAsk}:{playlists:PlaylistLocal[];onCreate:(name:string)=>void;onRename:(id:string,name:string)=>void;onDelete:(id:string)=>void;trigger:number;onConsumeTrigger:()=>void;onAsk:(q?:string)=>void}){
+ const [modal,setModal]=useState<'create'|'rename'|'delete'|null>(null)
+ const [value,setValue]=useState('')
+ const [selected,setSelected]=useState<string|null>(null)
+ useEffect(()=>{if(trigger){setValue('');setModal('create');onConsumeTrigger()}},[trigger,onConsumeTrigger])
+ const current=playlists.find(p=>p.id===selected)??null
+ const openCreate=()=>{setValue('');setModal('create')}
+ function submit(){const s=value.trim();if(!s)return;if(modal==='create')onCreate(s);if(modal==='rename'&&current)onRename(current.id,s);setModal(null)}
+ return <div className="library"><div className="page-head split"><div><div className="eyebrow accent">YOUR OWN LITTLE CORNER</div><h1>Made for <span>your ears.</span></h1><p>All your favorite playlists in one place. Made by you, shaped by your taste.</p></div><button className="btn primary" onClick={openCreate}><Icon name="plus" size={18}/> Create playlist</button></div><div className="notice neutral"><Icon name="info" size={18}/> Frontend preview · Playlists are saved in this browser only. Backend syncing is not implemented.</div><div className="section-heading"><div><div className="eyebrow">SAVED COLLECTIONS</div><h2>My playlists <span className="count">{playlists.length}</span></h2></div></div>{playlists.length?<div className="playlist-layout"><div className="playlist-list">{playlists.map((p,i)=><button key={p.id} className={`playlist-tile ${selected===p.id?'selected':''}`} onClick={()=>setSelected(p.id)}><span className={`cover cover-${i%4}`}><Icon name="music" size={25}/></span><span className="playlist-tile-text"><strong>{p.name}</strong><small>{p.tracks.length} tracks · Saved locally</small></span><Icon name="chevron-right" size={18}/></button>)}</div><div className="playlist-details">{current?<><span className="detail-cover"><Icon name="music" size={42}/></span><div className="eyebrow">PLAYLIST</div><h3>{current.name}</h3><p>No tracks yet. Once a provider is connected, verified songs can be added.</p><div className="detail-actions"><button className="btn outlined" onClick={()=>{setValue(current.name);setModal('rename')}}><Icon name="edit" size={16}/> Rename</button><button className="btn danger" onClick={()=>setModal('delete')}><Icon name="trash" size={16}/> Delete</button></div></>:<><span className="empty-icon"><Icon name="list" size={32}/></span><h3>Select a playlist</h3><p>Choose one on the left to manage its details.</p></>}</div></div>:<div className="library-blank"><div className="cover-stack"><span/><span/><span><Icon name="music" size={39}/></span></div><h3>It's a little quiet in here.</h3><p>Start your library with a playlist. No account required — your collections stay in this browser for now.</p><div className="button-row"><button className="btn primary" onClick={openCreate}><Icon name="plus" size={17}/> Create your first playlist</button><button className="btn outlined" onClick={()=>onAsk('Help me plan a music playlist')}><Icon name="sparkles" size={17}/> Ask AI</button></div></div>}
+ {modal&&<Modal title={modal==='create'?'Create a playlist':modal==='rename'?'Rename playlist':'Delete this playlist?'} description={modal==='delete'?`“${current?.name??''}” will be removed from this browser. This cannot be undone.`:'Give your collection a name. You can change it later.'} onClose={()=>setModal(null)}>{modal==='delete'?<div className="modal-actions"><button className="btn outlined" onClick={()=>setModal(null)}>Cancel</button><button className="btn danger-solid" onClick={()=>{if(current){onDelete(current.id);setSelected(null)}setModal(null)}}>Delete playlist</button></div>:<form onSubmit={e=>{e.preventDefault();submit()}}><label className="input-label" htmlFor="playlist-name">Playlist name</label><input id="playlist-name" className="normal-input" autoFocus required maxLength={80} placeholder="e.g. Songs for rainy days" value={value} onChange={e=>setValue(e.target.value)}/><div className="modal-actions"><button type="button" className="btn outlined" onClick={()=>setModal(null)}>Cancel</button><button className="btn primary" type="submit" disabled={!value.trim()}>{modal==='create'?'Create playlist':'Save changes'}</button></div></form>}</Modal>}
+ </div>
 }

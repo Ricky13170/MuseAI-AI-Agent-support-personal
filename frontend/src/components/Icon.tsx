@@ -1,0 +1,42 @@
+import type { ReactNode, SVGProps } from 'react'
+export type IconName = 'music'|'home'|'search'|'sparkles'|'library'|'sliders'|'plus'|'arrow-right'|'arrow-up-right'|'menu'|'x'|'sun'|'moon'|'chevron-right'|'headphones'|'heart'|'wind'|'coffee'|'list'|'play'|'skip-back'|'skip-forward'|'volume'|'check'|'alert'|'trash'|'edit'|'disc'|'send'|'refresh'|'info'|'shield'|'clock'|'zap'|'loader'
+const drawings: Record<IconName, ReactNode> = {
+ music:<><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></>,
+ home:<><path d="m3 10 9-7 9 7v10H3V10Z"/><path d="M9 20v-7h6v7"/></>,
+ search:<><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></>,
+ sparkles:<><path d="m12 2 2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4L12 2Z"/></>,
+ library:<><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="16" rx="1"/><path d="m17 6 3-1 3 14-3 1-3-14Z"/></>,
+ sliders:<><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2"/><circle cx="16" cy="17" r="2"/></>,
+ plus:<path d="M12 5v14M5 12h14"/>,
+ 'arrow-right':<path d="M4 12h16m-7-7 7 7-7 7"/>,
+ 'arrow-up-right':<path d="M6 18 18 6M9 6h9v9"/>,
+ menu:<path d="M4 6h16M4 12h16M4 18h16"/>,
+ x:<path d="M5 5 19 19M19 5 5 19"/>,
+ sun:<><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></>,
+ moon:<path d="M20 15A8 8 0 0 1 9 4a8.5 8.5 0 1 0 11 11Z"/>,
+ 'chevron-right':<path d="m9 18 6-6-6-6"/>,
+ headphones:<><path d="M3 12a9 9 0 0 1 18 0"/><rect x="3" y="12" width="4" height="8" rx="2"/><rect x="17" y="12" width="4" height="8" rx="2"/></>,
+ heart:<path d="M20 9c0 4.5-8 10-8 10S4 13.5 4 9c0-4.8 5.8-6.3 8-2.4C14.2 2.7 20 4.2 20 9Z"/>,
+ wind:<path d="M3 8h12a3 3 0 1 0-3-3M3 12h17a2 2 0 1 1-2 2M3 16h9a3 3 0 1 1-3 3"/>,
+ coffee:<><path d="M4 7h13v9a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V7Zm13 2h2a3 3 0 0 1 0 6h-2M7 2v3m5-3v3"/></>,
+ list:<path d="M3 6h17M3 12h13M3 18h13"/>,
+ play:<path d="m8 5 11 7-11 7V5Z" fill="currentColor" stroke="none"/>,
+ 'skip-back':<><path d="M5 5v14"/><path d="m19 5-11 7 11 7V5Z"/></>,
+ 'skip-forward':<><path d="M19 5v14"/><path d="M5 5v14l11-7L5 5Z"/></>,
+ volume:<><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15 9a5 5 0 0 1 0 6m3-9a9 9 0 0 1 0 12"/></>,
+ check:<path d="m4 12 5 5L20 6"/>,
+ alert:<><circle cx="12" cy="12" r="9"/><path d="M12 7v6m0 4h.01"/></>,
+ trash:<><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6m4-6v6"/></>,
+ edit:<path d="m15 5 4 4M4 20l4.5-1 11-11a2.8 2.8 0 0 0-4-4l-11 11L4 20Z"/>,
+ disc:<><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></>,
+ send:<><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></>,
+ refresh:<path d="M20 11a8 8 0 0 0-14-5L4 8m0-5v5h5M4 13a8 8 0 0 0 14 5l2-2m0 5v-5h-5"/>,
+ info:<><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10h.01"/></>,
+ shield:<><path d="m12 2 9 4v6c0 5-3.5 8-9 10-5.5-2-9-5-9-10V6l9-4Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></>,
+ clock:<><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></>,
+ zap:<path d="m13 2-9 12h7l-1 8 10-12h-7V2Z"/>,
+ loader:<path d="M20 12a8 8 0 1 1-8-8"/>,
+}
+export function Icon({ name, size=20, ...props }: SVGProps<SVGSVGElement> & {name: IconName; size?: number}) {
+ return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>{drawings[name]}</svg>
+}

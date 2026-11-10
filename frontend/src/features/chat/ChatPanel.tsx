@@ -1,15 +1,10 @@
-import { FeatureCard } from '../../components/FeatureCard'
+import { useEffect, useRef } from 'react'
+import { Icon, type IconName } from '../../components/Icon'
+import type { Message } from '../../types/ui'
 
-export function ChatPanel() {
-  return (
-    <FeatureCard feature="F004 · One Agent" title="Chat with MusicMind" className="chat-card">
-      <p>Eventually: Vietnamese/English music requests, tool use and confirmations.</p>
-      <div className="chat-empty">Your Agent conversation will appear here.</div>
-      <div className="input-row">
-        <input aria-label="Chat message (not implemented)" placeholder="Suggest calm music for studying..." disabled />
-        <button disabled>Send</button>
-      </div>
-      <p className="subtle">LangGraph and LLM integration have not been implemented.</p>
-    </FeatureCard>
-  )
+export function Assistant({messages,draft,setDraft,send,busy,onReset}:{messages:Message[];draft:string;setDraft:(s:string)=>void;send:()=>void;busy:boolean;onReset:()=>void}){
+ const bottom=useRef<HTMLDivElement | null>(null)
+ useEffect(()=>bottom.current?.scrollIntoView({behavior:'smooth',block:'nearest'}),[messages,busy])
+ const starters=[{name:'Find my focus',text:'Find me mellow songs for deep focus',icon:'wind' as IconName},{name:'Make a playlist',text:'Create a chill playlist for a rainy evening',icon:'list' as IconName},{name:'Discover more',text:'Suggest new indie artists I might like',icon:'sparkles' as IconName}]
+ return <div className="assistant-chat"><header className="chat-header"><span className="ai-avatar large"><Icon name="sparkles" size={27}/></span><div><h2>MusicMind AI</h2><p><span className="status-dot amber"/>Agent integration pending · Single-Agent architecture</p></div><button className="icon-btn reset" disabled={!messages.length&&!draft} onClick={onReset} aria-label="Start new conversation" title="Reset chat"><Icon name="refresh" size={20}/></button></header><div className="chat-stream">{messages.length? <div className="chat-history">{messages.map(m=><div className={`message ${m.role} ${m.error?'is-error':''}`} key={m.id}><span className="message-avatar">{m.role==='user'?'M':<Icon name="sparkles" size={17}/>}</span><div><small>{m.role==='user'?'You':'MusicMind'}</small><p>{m.text}</p></div></div>)}{busy&&<div className="typing"><Icon name="loader" size={17} className="spinning"/>Contacting the Agent endpoint...</div>}<div ref={bottom}/></div>:<div className="chat-welcome"><span className="welcome-symbol"><Icon name="sparkles" size={39}/></span><div className="eyebrow accent">YOUR MUSIC COPILOT</div><h2>Hey there. What are we<br/><span>listening to today?</span></h2><p>Find music, explore your taste, and build playlists through conversation. Agent integration is the next phase.</p><div className="starter-grid">{starters.map(s=><button key={s.name} onClick={()=>setDraft(s.text)}><Icon name={s.icon} size={22}/><strong>{s.name}</strong><small>{s.text}</small><Icon className="starter-arrow" name="arrow-up-right" size={17}/></button>)}</div></div>}</div><div className="chat-bottom"><div className="chat-composer"><textarea placeholder="Ask about music, moods, or playlists..." aria-label="Message MusicMind" rows={2} disabled={busy} value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}}}/><button onClick={send} disabled={busy||!draft.trim()} aria-label="Send message"><Icon name="arrow-right" size={21}/></button></div><p><Icon name="info" size={13}/> Prototype mode — the backend Agent is not implemented yet.</p></div></div>
 }

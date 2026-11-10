@@ -1,10 +1,18 @@
-import { FeatureCard } from '../../components/FeatureCard'
+import { useState } from 'react'
+import { Icon } from '../../components/Icon'
+import { Modal } from '../../components/Modal'
+import type { PreferencesLocal } from '../../types/ui'
 
-export function PreferencesPanel() {
-  return (
-    <FeatureCard feature="F003 · Profile" title="Preferences">
-      <p className="subtle">Favorite artists, genres, moods and explicit feedback will go here.</p>
-      <button disabled>Set preferences</button>
-    </FeatureCard>
-  )
+const defaultPreferences: PreferencesLocal = { genres: [], moods: [], artists: [] }
+const genres = ['Indie', 'Pop', 'R&B', 'Lo-fi', 'Jazz', 'Rock', 'Hip-hop', 'Classical', 'Electronic', 'K-pop', 'Acoustic', 'V-pop']
+const moods = ['Relaxed', 'Focused', 'Upbeat', 'Dreamy', 'Nostalgic', 'Cozy', 'Energetic', 'Calm']
+
+export function Preferences({prefs,onSave,onClear}:{prefs:PreferencesLocal;onSave:(v:PreferencesLocal)=>void;onClear:()=>void}){
+ const [draft,setDraft]=useState<PreferencesLocal>(prefs)
+ const [artist,setArtist]=useState('')
+ const [saved,setSaved]=useState(false)
+ const [clearDialog,setClearDialog]=useState(false)
+ const toggle=(key:'genres'|'moods',v:string)=>{setDraft(p=>({...p,[key]:p[key].includes(v)?p[key].filter(s=>s!==v):[...p[key],v]}));setSaved(false)}
+ const addArtist=()=>{const s=artist.trim();if(!s)return;setDraft(p=>({...p,artists:p.artists.some(a=>a.toLowerCase()===s.toLowerCase())?p.artists:[...p.artists,s]}));setArtist('');setSaved(false)}
+ return <div className="preferences"><div className="page-head"><div className="eyebrow accent">MAKE IT YOURS</div><h1>It's all about <span>your taste.</span></h1><p>Tell MusicMind what you enjoy. Your saved preferences can inform recommendations once AI is connected.</p></div><div className="settings-panel"><header><span className="setting-icon"><Icon name="headphones" size={23}/></span><div><h2>Your favorite genres</h2><p>Pick as many as you like.</p></div></header><div className="choice-row">{genres.map(g=><button key={g} className={draft.genres.includes(g)?'chosen':''} aria-pressed={draft.genres.includes(g)} onClick={()=>toggle('genres',g)}>{draft.genres.includes(g)&&<Icon name="check" size={13}/>} {g}</button>)}</div></div><div className="settings-panel"><header><span className="setting-icon yellow"><Icon name="sun" size={23}/></span><div><h2>The moods you love</h2><p>What kind of atmosphere do you gravitate toward?</p></div></header><div className="choice-row">{moods.map(m=><button key={m} className={draft.moods.includes(m)?'chosen':''} aria-pressed={draft.moods.includes(m)} onClick={()=>toggle('moods',m)}>{draft.moods.includes(m)&&<Icon name="check" size={13}/>} {m}</button>)}</div></div><div className="settings-panel"><header><span className="setting-icon rose"><Icon name="heart" size={23}/></span><div><h2>Favorite artists</h2><p>Have a favorite? Add them here.</p></div></header><form className="artist-form" onSubmit={e=>{e.preventDefault();addArtist()}}><input className="normal-input" placeholder="Type an artist's name..." aria-label="Favorite artist" maxLength={100} value={artist} onChange={e=>setArtist(e.target.value)}/><button className="btn outlined" type="submit" disabled={!artist.trim()}><Icon name="plus" size={17}/> Add</button></form>{draft.artists.length?<div className="artist-tags">{draft.artists.map(a=><span key={a}>{a}<button aria-label={`Remove ${a}`} onClick={()=>{setDraft(p=>({...p,artists:p.artists.filter(s=>s!==a)}));setSaved(false)}}><Icon name="x" size={14}/></button></span>)}</div>:<p className="no-artists">No favorite artists added yet.</p>}</div><div className="save-row"><span><Icon name={saved?'check':'info'} size={16}/>{saved?'Preferences saved in this browser.':'Preferences stay in your browser — not sent to an AI model.'}</span><button className="btn primary" onClick={()=>{onSave(draft);setSaved(true)}}>Save preferences <Icon name="check" size={17}/></button></div><div className="settings-panel privacy-panel"><header><span className="setting-icon grey"><Icon name="shield" size={23}/></span><div><h2>Privacy & local data</h2><p>You're always in control of what gets stored.</p></div></header><div className="privacy-line"><div><strong>Listening history</strong><p>Not collected in this prototype. Playback tracking is not implemented.</p></div><span className="off-pill">OFF</span></div><div className="privacy-line"><div><strong>Delete local app data</strong><p>Clear your browser-saved playlists and preferences.</p></div><button className="btn outlined danger-text" onClick={()=>setClearDialog(true)}>Clear data</button></div></div>{clearDialog&&<Modal title="Clear local data?" description="This will delete all browser-saved playlists and preferences. It won't affect a music provider account." onClose={()=>setClearDialog(false)}><div className="modal-actions"><button className="btn outlined" onClick={()=>setClearDialog(false)}>Cancel</button><button className="btn danger-solid" onClick={()=>{onClear();setDraft(defaultPreferences);setSaved(false);setClearDialog(false)}}>Delete local data</button></div></Modal>}</div>
 }

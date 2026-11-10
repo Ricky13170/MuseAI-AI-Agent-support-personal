@@ -1,0 +1,344 @@
+/*
+ * Muse • Liquid Glass UI
+ * Web interpretation of the soft, translucent and layered iOS 26 design language.
+ * Loaded after styles.css so the original component layouts and behavior remain intact.
+ */
+:root {
+  --bg: #0c0b18;
+  --side: #151326;
+  --panel: #1c192d;
+  --card: #211e33;
+  --hover: rgba(194, 174, 255, .12);
+  --input: #211d34;
+  --line: rgba(218, 205, 255, .13);
+  --line2: rgba(220, 208, 255, .25);
+  --purple: #c3b0ff;
+  --purple-dim: rgba(176, 145, 255, .16);
+  --glass-fill: rgba(27, 23, 47, .55);
+  --glass-strong: rgba(29, 26, 49, .74);
+  --glass-tile: rgba(255, 255, 255, .048);
+  --glass-input: rgba(255, 255, 255, .075);
+  --glass-border: rgba(239, 229, 255, .21);
+  --glass-border-soft: rgba(239, 229, 255, .13);
+  --glass-highlight: rgba(255, 255, 255, .15);
+  --glass-shadow: 0 22px 60px rgba(3, 1, 18, .34), inset 0 1px 0 rgba(255,255,255,.11);
+  --glass-blur: blur(30px) saturate(170%);
+}
+
+:root[data-theme='light'] {
+  --bg: #f4f0ff;
+  --side: #faf9ff;
+  --panel: #faf8ff;
+  --card: #fff;
+  --hover: rgba(112, 84, 181, .09);
+  --input: #fff;
+  --line: rgba(100, 83, 153, .12);
+  --line2: rgba(93, 74, 147, .22);
+  --purple: #7351d6;
+  --purple-dim: rgba(112, 84, 181, .13);
+  --glass-fill: rgba(255, 255, 255, .62);
+  --glass-strong: rgba(255, 255, 255, .82);
+  --glass-tile: rgba(255, 255, 255, .53);
+  --glass-input: rgba(255, 255, 255, .70);
+  --glass-border: rgba(255, 255, 255, .93);
+  --glass-border-soft: rgba(124, 106, 180, .20);
+  --glass-highlight: rgba(255, 255, 255, .93);
+  --glass-shadow: 0 20px 52px rgba(72, 48, 133, .12), inset 0 1px 0 rgba(255,255,255,.95);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 46% 43% at 12% 20%, rgba(111, 70, 205, .22), transparent 100%),
+    radial-gradient(ellipse 48% 45% at 88% 72%, rgba(113, 67, 183, .16), transparent 100%),
+    radial-gradient(ellipse 30% 29% at 68% 1%, rgba(201, 136, 235, .10), transparent 100%),
+    linear-gradient(138deg, #090a15 0%, #141123 56%, #0a0b17 100%);
+  background-attachment: fixed;
+}
+:root[data-theme='light'] body {
+  background:
+    radial-gradient(ellipse 45% 43% at 15% 22%, rgba(161, 121, 246, .23), transparent 100%),
+    radial-gradient(ellipse 44% 42% at 88% 78%, rgba(149, 187, 245, .21), transparent 100%),
+    linear-gradient(145deg, #f7f5ff, #eeeaf8 55%, #f8f5ff);
+  background-attachment: fixed;
+}
+
+/* Floating desktop shell: side navigation, command bar and persistent player. */
+.app-shell { padding-bottom: 112px; }
+.sidebar,
+.topbar,
+.player-bar,
+.mobile-tabs,
+.assistant-rail {
+  border: 1px solid var(--glass-border);
+  background: linear-gradient(140deg, rgba(255,255,255,.075), transparent 35%), var(--glass-fill);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+}
+.sidebar::before,
+.topbar::before,
+.player-bar::before,
+.mobile-tabs::before,
+.assistant-rail::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(155deg, rgba(255,255,255,.095), transparent 34%, rgba(187,153,255,.035) 84%);
+  pointer-events: none;
+}
+.sidebar {
+  top: 16px;
+  left: 16px;
+  bottom: 112px;
+  width: 244px;
+  border-radius: 28px;
+  padding: 23px 14px 14px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(187, 158, 255, .25) transparent;
+}
+.workspace { margin-left: 275px; }
+.brand-row { padding: 1px 6px; }
+.brand-icon-image { border-radius: 14px; box-shadow: 0 7px 20px rgba(108, 70, 195, .20); }
+.sidebar nav { margin-top: 43px; }
+.nav-title { color: var(--muted); }
+.nav-item {
+  border-radius: 16px;
+  padding: 12px 14px;
+  transition: background .2s ease, color .2s ease, transform .2s ease, border-color .2s ease;
+}
+.nav-item:hover { transform: translateX(2px); }
+.nav-item.active {
+  color: var(--text);
+  border-color: rgba(210, 190, 255, .23);
+  background: linear-gradient(115deg, rgba(183,153,255,.25), rgba(169,125,255,.09));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.13), 0 5px 18px rgba(59,38,101,.13);
+}
+.nav-item.active svg { color: var(--purple); }
+.ai-pill, .num-pill { border-radius: 999px; }
+.side-promo,
+.rail-feature {
+  border: 1px solid rgba(224, 202, 255, .22);
+  border-radius: 22px;
+  background: radial-gradient(circle at 95% 5%, rgba(189,145,255,.23), transparent 62%), rgba(126,91,194,.13);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.11);
+}
+.side-promo button { border-radius: 14px; }
+.side-status { margin: 16px -12px -12px; border-radius: 0 0 25px 25px; padding: 17px 16px 14px; }
+
+.topbar {
+  top: 14px;
+  height: 68px;
+  margin: 14px 18px 0;
+  padding: 0 22px;
+  border-radius: 23px;
+}
+.topbar-location strong { color: var(--text); }
+.top-search {
+  height: 40px;
+  border: 1px solid var(--glass-border-soft);
+  border-radius: 15px;
+  background: var(--glass-input);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+  transition: background .18s, border-color .18s;
+}
+.top-search:focus-within { border-color: var(--purple); background: var(--glass-tile); }
+.icon-btn { border-radius: 13px; transition: background .2s ease, color .2s ease; }
+.avatar { border-color: rgba(237,215,255,.54); box-shadow: 0 4px 14px rgba(130,86,224,.22); }
+
+.workspace-body.with-rail { grid-template-columns: minmax(0,1fr) 316px; align-items: start; }
+.main-pane { padding: 34px 31px 62px; }
+.assistant-rail {
+  top: 100px;
+  margin: 18px 18px 30px 0;
+  padding: 24px 19px;
+  min-height: min(660px, calc(100dvh - 218px));
+  max-height: calc(100dvh - 118px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  border-radius: 26px;
+}
+.rail-prompts button { border-color: var(--glass-border-soft); border-radius: 16px; background: var(--glass-tile); }
+.dev-label { border-radius: 999px; }
+
+/* Glass cards and in-page toolbars, without unnecessary heavy nested blurs. */
+.home-empty,
+.playlist-tile,
+.assistant-chat,
+.discover-form,
+.discover-empty,
+.library-blank,
+.playlist-details,
+.settings-panel,
+.starter-grid button,
+.search-chips button,
+.rail-prompts button,
+.modal {
+  background: var(--glass-tile);
+  border-color: var(--glass-border-soft);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.055);
+}
+.home-empty,
+.library-blank,
+.playlist-details,
+.settings-panel,
+.discover-empty { border-radius: 24px; }
+.playlist-tile,
+.search-chips button,
+.starter-grid button { border-radius: 19px; }
+.playlist-tile:hover,
+.search-chips button:hover,
+.starter-grid button:hover,
+.rail-prompts button:hover { background: var(--hover); }
+.discover-form { border-radius: 21px; }
+.hero { border-radius: 27px; box-shadow: 0 14px 45px rgba(94,67,159,.16), inset 0 1px 0 rgba(255,255,255,.19); }
+.mood-card { border-radius: 22px; }
+.btn { border-radius: 15px; transition: transform .18s ease, background .18s ease, box-shadow .18s ease; }
+.btn.primary { box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 6px 20px rgba(133,102,212,.20); }
+.btn.outlined, .choice-row button, .normal-input { background: var(--glass-input); border-color: var(--glass-border-soft); }
+.choice-row button { border-radius: 13px; }
+.normal-input { border-radius: 16px; }
+
+/* Chat header, composer and message bubbles. */
+.assistant-chat {
+  border-radius: 27px;
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(16px) saturate(145%);
+  backdrop-filter: blur(16px) saturate(145%);
+  box-shadow: var(--glass-shadow);
+}
+.chat-header, .chat-bottom {
+  background: linear-gradient(150deg, rgba(255,255,255,.07), transparent), var(--glass-tile);
+  border-color: var(--glass-border-soft);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+.chat-composer { border-radius: 19px; background: var(--glass-input); border-color: var(--glass-border-soft); }
+.chat-composer button { border-radius: 13px; }
+.message p { border-radius: 6px 19px 19px 19px; background: var(--glass-input); border: 1px solid var(--glass-border-soft); }
+.message.user p { border-radius: 19px 6px 19px 19px; background: #8067cb; border-color: rgba(255,255,255,.15); }
+
+/* Floating bottom player: preserve all playback/queue controls. */
+.player-bar {
+  left: 16px;
+  right: 16px;
+  bottom: 15px;
+  height: 82px;
+  padding: 0 24px;
+  border-radius: 26px;
+  background: linear-gradient(140deg, rgba(255,255,255,.10), transparent 40%), var(--glass-strong);
+  box-shadow: 0 18px 54px rgba(3,1,18,.42), inset 0 1px 0 var(--glass-highlight);
+}
+.track-art { border-radius: 16px; background: linear-gradient(145deg, #604784, #27223e); }
+.player-buttons .main-play { height: 38px; width: 38px; box-shadow: 0 5px 18px rgba(178,143,255,.20); }
+.player-buttons button:not(.main-play) { border-radius: 12px; }
+.progress>div { height: 4px; border-radius: 999px; background: var(--glass-border-soft); }
+.player-tools .icon-btn { background: var(--glass-tile); border: 1px solid var(--glass-border-soft); }
+
+/* Glass queue drawer and dialog. */
+.queue-drawer {
+  top: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 30px;
+  border: 1px solid var(--glass-border);
+  border-radius: 27px;
+  background: var(--glass-strong);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(32px) saturate(160%);
+  backdrop-filter: blur(32px) saturate(160%);
+}
+.scrim, .mobile-scrim { background: rgba(5, 3, 17, .59); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.modal-backdrop { background: rgba(5, 3, 17, .56); -webkit-backdrop-filter: blur(9px); backdrop-filter: blur(9px); }
+.modal { border-color: var(--glass-border); border-radius: 27px; background: var(--glass-strong); -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur); box-shadow: var(--glass-shadow); }
+
+/* Keep the original Muse logo readable on both appearances. */
+:root[data-theme='light'] .brand-wordmark-image { background: #140e28; border-radius: 8px; padding: 3px; }
+:root[data-theme='light'] .side-promo,
+:root[data-theme='light'] .rail-feature { background: radial-gradient(circle at 95% 5%, rgba(158,115,233,.21), transparent 60%), rgba(136,99,208,.10); border-color: rgba(112,84,181,.18); }
+:root[data-theme='light'] .side-promo { color: #372458; }
+:root[data-theme='light'] .side-promo p,
+:root[data-theme='light'] .rail-feature p { color: #665b7b; }
+:root[data-theme='light'] .rail-feature h2 { color: #392659; }
+:root[data-theme='light'] .rail-feature .eyebrow { color: #7453b8; }
+:root[data-theme='light'] .side-promo button { background: rgba(119,87,178,.11); border-color: rgba(119,87,178,.19); color: #48316f; }
+
+/* Responsive floating surfaces and safe touch targets. */
+@media (max-width: 1450px) {
+  .sidebar { width: 226px; }
+  .workspace { margin-left: 258px; }
+  .workspace-body.with-rail { grid-template-columns: minmax(0,1fr) 288px; }
+  .main-pane { padding: 31px 27px 54px; }
+}
+@media (max-width: 1210px) {
+  .workspace-body.with-rail { display: block; }
+  .assistant-rail {
+    position: relative;
+    top: auto;
+    margin: 0 27px 32px;
+    min-height: auto;
+    max-height: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  .rail-header, .rail-note { grid-column: 1/-1; }
+}
+@media (max-width: 850px) {
+  .sidebar { left: -280px; top: 13px; bottom: 13px; width: 244px; transition: left .24s ease; }
+  .sidebar.open { left: 13px; }
+  .workspace { margin-left: 0; }
+  .topbar { margin: 13px 15px 0; }
+  .main-pane { padding: 29px 26px 55px; }
+  .player-bar { grid-template-columns: 1fr 1fr auto; }
+}
+@media (max-width: 620px) {
+  .app-shell { padding-bottom: 164px; }
+  .topbar { top: 10px; margin: 10px 12px 0; height: 57px; padding: 0 15px; border-radius: 19px; }
+  .topbar-actions { gap: 6px; }
+  .main-pane { padding: 28px 16px 37px; }
+  .assistant-rail { display: block; margin: 0 14px 24px; padding: 19px; border-radius: 23px; }
+  .assistant-rail>* { margin-bottom: 18px; }
+  .player-bar {
+    left: 12px;
+    right: 12px;
+    bottom: 81px;
+    height: 66px;
+    padding: 0 13px;
+    grid-template-columns: minmax(0,1fr) auto;
+    border-radius: 21px;
+  }
+  .mobile-tabs {
+    position: fixed;
+    display: flex;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    height: 58px;
+    padding: 4px;
+    border-radius: 21px;
+    align-items: stretch;
+    justify-content: space-around;
+  }
+  .mobile-tabs button { border-radius: 15px; position: relative; z-index: 1; transition: background .2s, color .2s; }
+  .mobile-tabs button.active { background: var(--purple-dim); color: var(--purple); }
+  .assistant-chat { height: calc(100dvh - 249px); min-height: 425px; border-radius: 22px; }
+  .chat-composer { border-radius: 15px; }
+  .queue-drawer { top: 9px; right: 9px; bottom: 9px; width: min(385px, calc(100vw - 18px)); border-radius: 24px; }
+  .hero { border-radius: 23px; }
+  .settings-panel { border-radius: 21px; }
+}
+
+/* Graceful fallbacks for browsers that cannot blur the content behind surfaces. */
+@supports not (backdrop-filter: blur(2px)) {
+  .sidebar, .topbar, .player-bar, .mobile-tabs, .assistant-rail, .assistant-chat, .modal, .queue-drawer { background: var(--panel); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .sidebar, .topbar, .player-bar, .mobile-tabs, .assistant-rail, .assistant-chat, .modal, .queue-drawer { background: var(--panel); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-item { transform: none !important; }
+}

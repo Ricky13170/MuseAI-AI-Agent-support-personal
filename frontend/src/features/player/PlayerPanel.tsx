@@ -1,11 +1,5 @@
-import { FeatureCard } from '../../components/FeatureCard'
+import { Icon } from '../../components/Icon'
 
-export function PlayerPanel() {
-  return (
-    <FeatureCard feature="F002 · Playback" title="Now playing">
-      <div className="player-placeholder">No track selected</div>
-      <p className="subtle">An authorized provider player will be embedded here.</p>
-      <button disabled>Play / Pause</button>
-    </FeatureCard>
-  )
+export function Player({onQueue}:{onQueue:()=>void}){
+ return <footer className="player-bar" aria-label="Music player"><div className="current-track"><span className="track-art"><Icon name="music" size={23}/></span><div><strong>Nothing playing yet</strong><small>Find some music to get started</small></div><Icon className="muted-heart" name="heart" size={19}/></div><div className="player-center"><div className="player-buttons"><button disabled aria-label="Previous track" title="No player connected"><Icon name="skip-back" size={20}/></button><button className="main-play" disabled aria-label="Play" title="No player connected"><Icon name="play" size={18}/></button><button disabled aria-label="Next track" title="No player connected"><Icon name="skip-forward" size={20}/></button></div><div className="progress"><span>0:00</span><div role="progressbar" aria-label="Playback position" aria-valuenow={0} aria-valuemin={0} aria-valuemax={100}/><span>0:00</span></div></div><div className="player-tools"><span>PLAYER NOT CONNECTED</span><button className="icon-btn volume" disabled aria-label="Volume unavailable"><Icon name="volume" size={20}/></button><button className="icon-btn" onClick={onQueue} aria-label="Open play queue" title="Queue"><Icon name="list" size={22}/></button></div></footer>
 }

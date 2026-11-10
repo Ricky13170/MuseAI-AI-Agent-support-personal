@@ -1,0 +1,2338 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   MusicMind &mdash; Detailed Requirements
+  </title>
+  <style>
+   :root{--bg:#faf9f6;--panel:#fff;--ink:#242321;--muted:#65625d;--soft:#f1efea;--border:#e2ded7;--accent:#b45b44;--teal:#237468;--blue:#3e678c;--warning:#95601e;--sidebar:264px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif}body.dark{--bg:#191918;--panel:#252523;--ink:#f0eee8;--muted:#bbb5ab;--soft:#32302c;--border:#48433b;--accent:#e68a69;--teal:#80cab3;--blue:#94bff1;--warning:#dfb67e}.top{height:64px;position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:0 27px;background:var(--panel);border-bottom:1px solid var(--border)}.brand{display:flex;gap:12px;align-items:center}.brandmark{height:35px;width:35px;background:var(--accent);color:white;border-radius:10px;display:grid;place-items:center;font-size:20px}.brand strong{font-size:15px}.brand span{font-size:12px;color:var(--muted)}.top button{background:none;border:1px solid var(--border);border-radius:8px;color:var(--ink);padding:7px 11px;cursor:pointer}.layout{display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr)}.sidebar{position:sticky;top:64px;height:calc(100vh - 64px);overflow:auto;padding:26px 15px;background:var(--panel);border-right:1px solid var(--border)}.sidebar .small{font-size:10px;letter-spacing:.11em;color:var(--muted);text-transform:uppercase;font-weight:800;margin:12px 12px}.sidebar a{display:block;padding:7px 11px;text-decoration:none;color:var(--muted);border-radius:8px;font-size:12px;line-height:1.5}.sidebar a:hover{background:var(--soft);color:var(--ink)}main{padding:38px 6vw 90px;max-width:1140px;width:100%;margin:auto}h1{font-size:34px;letter-spacing:-.035em;line-height:1.14;margin:4px 0 15px}h2{font-size:23px;letter-spacing:-.02em;line-height:1.3;margin:48px 0 16px}h3{font-size:18px;line-height:1.3;margin:16px 0 11px}h4{font-size:15px;margin:0}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}.lead{font-size:16px;color:var(--muted);max-width:800px;margin:0 0 24px}.capsule{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:3px 9px;font-size:11px;font-weight:700;color:var(--muted);margin-right:5px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:25px 0 30px}.stat{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:13px 16px}.stat b{font-size:23px;display:block;line-height:1.35}.stat span{font-size:11px;color:var(--muted)}.panel{padding:22px;border:1px solid var(--border);border-radius:12px;background:var(--panel);margin:14px 0}.panel p:last-child{margin-bottom:0}table{width:100%;border-collapse:collapse;margin:13px 0 18px;font-size:13px}th{text-align:left;background:var(--soft);font-size:12px}th,td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}ul{padding-left:21px}li{margin:5px 0}p{margin:7px 0 13px}.id{font-family:ui-monospace,Consolas,monospace;font-size:11px;color:var(--muted);font-weight:700}.badges{display:flex;gap:6px;flex-wrap:wrap;margin:5px 0}.tag{border-radius:6px;padding:2px 7px;font-size:11px;font-weight:700;border:1px solid var(--border)}.must{color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,transparent)}.should{color:var(--blue);background:color-mix(in srgb,var(--blue) 9%,transparent)}.could{color:var(--warning);background:color-mix(in srgb,var(--warning) 9%,transparent)}.epic{border:1px solid var(--border);background:var(--panel);border-radius:13px;margin:17px 0;overflow:hidden;scroll-margin-top:85px}.epic>summary{cursor:pointer;list-style:none;display:flex;align-items:flex-start;gap:14px;padding:20px}.epic>summary::-webkit-details-marker{display:none}.epic>summary:before{content:'▸';color:var(--accent);font-size:19px}.epic[open]>summary:before{content:'▾'}.epic h3{margin:1px 0 4px}.meta{padding:0 24px 17px 50px;color:var(--muted);font-size:13px}.meta strong{color:var(--ink)}.small-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.story{margin:13px 22px 20px 49px;border:1px solid var(--border);border-radius:11px;padding:16px;scroll-margin-top:85px}.story p{color:var(--muted);font-size:13px}.ac{border-left:3px solid var(--border);padding:6px 10px;margin:8px 0;background:var(--soft);font-size:12px;border-radius:0 7px 7px 0}.note{border-left:3px solid var(--accent);background:var(--soft);padding:12px 14px;border-radius:0 8px 8px 0;font-size:13px}.linkbar{display:flex;flex-wrap:wrap;gap:8px}.linkbar a{border:1px solid var(--border);background:var(--panel);border-radius:7px;padding:5px 9px;color:var(--ink);font-size:12px;text-decoration:none}.foot{border-top:1px solid var(--border);padding-top:16px;margin-top:60px;font-size:12px;color:var(--muted)}.callout{padding:16px;border:1px solid var(--border);border-radius:10px;background:var(--soft)}@media(max-width:960px){.layout{grid-template-columns:1fr}.sidebar{display:none}main{padding:27px 20px 60px}.stats{grid-template-columns:repeat(2,1fr)}.small-cols{grid-template-columns:1fr}.story{margin:10px 14px 15px}.meta{padding:0 15px 15px}}@media print{.top,.sidebar{display:none}.layout{display:block}main{padding:0;max-width:none}.epic{break-inside:avoid-page}.story{break-inside:avoid-page}body{background:white;color:black}.panel{background:white}}
+  </style>
+ </head>
+ <body>
+  <header class="top">
+   <div class="brand">
+    <div class="brandmark">
+     ♫
+    </div>
+    <div>
+     <strong>
+      MusicMind &middot; AI Music Agent
+     </strong>
+     <br/>
+     <span>
+      Functional requirements &middot; Stories &amp; Acceptance Criteria
+     </span>
+    </div>
+   </div>
+   <button id="theme" onclick="document.body.classList.toggle('dark')" type="button">
+    Light / Dark
+   </button>
+  </header>
+  <div class="layout">
+   <nav class="sidebar">
+    <div class="small">
+     Navigation
+    </div>
+    <a href="#overview">
+     Overview &amp; Scope
+    </a>
+    <a href="#features">
+     Features
+    </a>
+    <a href="#feature-001">
+     F001 &middot; Music Discovery &amp; Catalog
+    </a>
+    <a href="#feature-002">
+     F002 &middot; Player &amp; Queue
+    </a>
+    <a href="#feature-003">
+     F003 &middot; Music Preferences &amp; Listening Signals
+    </a>
+    <a href="#feature-004">
+     F004 &middot; Single-Agent Conversational Orchestration
+    </a>
+    <a href="#feature-005">
+     F005 &middot; Personalized AI Recommendations
+    </a>
+    <a href="#feature-006">
+     F006 &middot; Playlist Library &amp; Agentic Playlist Editing
+    </a>
+    <a href="#feature-007">
+     F007 &middot; Agent Evaluation &amp; Observability
+    </a>
+    <a href="#feature-008">
+     F008 &middot; Provider Integration, Reliability &amp; Privacy
+    </a>
+    <a href="#nfr">
+     Non-functional
+    </a>
+    <a href="#stack">
+     Tech Stack
+    </a>
+    <a href="#eval">
+     Evaluation
+    </a>
+    <a href="#risks">
+     Open Questions
+    </a>
+    <a href="#roadmap">
+     Phases
+    </a>
+   </nav>
+   <main>
+    <div class="eyebrow">
+     Requirements specification / Draft v0.1 &middot; 10 Nov 2026
+    </div>
+    <h1>
+     MusicMind &mdash; AI Music Agent
+    </h1>
+    <p class="lead">
+     Detailed functional requirements with feature scope, user stories and testable Given&ndash;When&ndash;Then acceptance criteria.
+    </p>
+    <div class="stats">
+     <div class="stat">
+      <b>
+       8
+      </b>
+      <span>
+       Features
+      </span>
+     </div>
+     <div class="stat">
+      <b>
+       26
+      </b>
+      <span>
+       Stories
+      </span>
+     </div>
+     <div class="stat">
+      <b>
+       78
+      </b>
+      <span>
+       Acceptance criteria
+      </span>
+     </div>
+     <div class="stat">
+      <b>
+       12
+      </b>
+      <span>
+       NFRs
+      </span>
+     </div>
+    </div>
+    <div class="panel" id="overview">
+     <h3>
+      Product vision &amp; scope
+     </h3>
+     <p>
+      MusicMind is a personal web music application with two entry points: direct track search and conversation with an AI Agent. The Agent helps listeners search in natural language, recommends verified catalog tracks based on stated preferences, explains its suggestions, and creates or edits playlists with user confirmation. Metadata and playback must come from authorized providers; the Agent must neither invent tracks nor extract audio without permission.
+     </p>
+     <div class="badges">
+      <span class="tag must">
+       Must = MVP
+      </span>
+      <span class="tag should">
+       Should = Phase 2
+      </span>
+      <span class="tag could">
+       Could = optional R&amp;D
+      </span>
+     </div>
+     <p>
+      <strong>
+       Single-Agent boundary:
+      </strong>
+      one Agent orchestrates tools. The music player, catalog adapter, ranking, and database operations are tools or components, not separate Agents. Persistent playlist changes require user confirmation.
+     </p>
+     <p>
+      <strong>
+       Provider boundary:
+      </strong>
+      use metadata and playback only as authorized by each provider; do not download or extract audio or bypass protected content.
+     </p>
+    </div>
+    <h2 id="features">
+     1. Functional Features &amp; User Stories
+    </h2>
+    <p>
+     Expand or collapse each feature below. Stable IDs support issue tracking and test-case mapping.
+    </p>
+    <details class="epic" id="feature-001" open="">
+     <summary>
+      <div>
+       <span class="id">
+        FEATURE-001 &middot; 3 stories
+       </span>
+       <h3>
+        Music Discovery &amp; Catalog
+       </h3>
+       <div style="font-size:13px;color:var(--muted)">
+        Find music through a search bar, retrieve catalog metadata, and present playable search results.
+       </div>
+      </div>
+     </summary>
+     <div class="meta">
+      <p>
+       <strong>
+        Business value:
+       </strong>
+       Provides useful music discovery independently of the Agent and trustworthy records that Agent tools can reference.
+      </p>
+      <div class="small-cols">
+       <div>
+        <strong>
+         In Scope
+        </strong>
+        <ul>
+         <li>
+          Search by track title, artist, and keywords
+         </li>
+         <li>
+          Display track metadata and playback availability
+         </li>
+         <li>
+          Normalize provider track IDs and distinguish recording versions
+         </li>
+        </ul>
+       </div>
+       <div>
+        <strong>
+         Out of Scope
+        </strong>
+        <ul>
+         <li>
+          Unauthorized downloading or storage of audio files
+         </li>
+         <li>
+          Crawling an entire music catalog
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+     <article class="story" id="us-001">
+      <div class="id">
+       USER STORY &middot; US-001
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Search tracks by text
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a listener, I want to search for songs by title, artist, or keyword so that I can choose music without talking to the Agent.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a non-empty search query, when I press Search, then the system returns results with title, artist, thumbnail, duration (when available), and provider.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given an empty or whitespace-only query, when search is submitted, then the system does not call the provider and prompts for a query.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given no matching results or a provider timeout, when the request completes, then the interface shows the appropriate state and does not fabricate tracks.
+      </div>
+     </article>
+     <article class="story" id="us-002">
+      <div class="id">
+       USER STORY &middot; US-002
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        View track metadata &amp; availability
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a listener, I want to inspect track details and playback availability before adding a track to a queue or playlist.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a search result, when I open its details, then at minimum its title, artist, source ID, and original-source link are displayed.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given a track that cannot be embedded or played, when I select Play, then the app explains the limitation and offers a provider link when available.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given multiple recordings or videos with the same song title, when results appear, then the UI distinguishes their IDs, sources, or versions rather than incorrectly merging them.
+      </div>
+     </article>
+     <article class="story" id="us-003">
+      <div class="id">
+       USER STORY &middot; US-003
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Refine and filter music search
+       </h4>
+       <span class="tag should">
+        Should
+       </span>
+      </div>
+      <p>
+       As a listener, I want to filter results by artist or version to find the recording I want more quickly.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given search results, when I filter by artist or duration, then the system applies the filter using available metadata.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given insufficient metadata, when I apply a filter, then the result is not presented as perfectly accurate.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given an active search filter, when I clear it, then the unfiltered search results are restored.
+      </div>
+     </article>
+    </details>
+    <details class="epic" id="feature-002" open="">
+     <summary>
+      <div>
+       <span class="id">
+        FEATURE-002 &middot; 3 stories
+       </span>
+       <h3>
+        Player &amp; Queue
+       </h3>
+       <div style="font-size:13px;color:var(--muted)">
+        Allow users to play content through supported provider players and manage a queue in the web application.
+       </div>
+      </div>
+     </summary>
+     <div class="meta">
+      <p>
+       <strong>
+        Business value:
+       </strong>
+       Delivers a real listening experience while keeping playback separate from Agent reasoning.
+      </p>
+      <div class="small-cols">
+       <div>
+        <strong>
+         In Scope
+        </strong>
+        <ul>
+         <li>
+          Compliant embedded player
+         </li>
+         <li>
+          Play, pause, next, and previous within provider capabilities
+         </li>
+         <li>
+          Queue and current-track state
+         </li>
+        </ul>
+       </div>
+       <div>
+        <strong>
+         Out of Scope
+        </strong>
+        <ul>
+         <li>
+          Audio-stream extraction, MP3 downloads, or offline playback
+         </li>
+         <li>
+          Hiding the required player or bypassing playback restrictions
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+     <article class="story" id="us-004">
+      <div class="id">
+       USER STORY &middot; US-004
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Play a selected track
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a listener, I want to play a selected track using a supported player directly in the application.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a valid provider playback reference, when I select Play, then the app loads the supported player and displays Now Playing.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given an embedding or playback error, when playback fails, then the app displays an error rather than claiming playback succeeded.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given a newly selected track, when the player confirms it is ready, then Now Playing reflects the actual player state.
+      </div>
+     </article>
+     <article class="story" id="us-005">
+      <div class="id">
+       USER STORY &middot; US-005
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Manage current playback queue
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a listener, I want to add, remove, and reorder queue items so that I control what plays next.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a valid track, when I select Add to Queue, then it appears in the correct queue position.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given a queue with multiple tracks, when I reorder or remove an item, then the queue changes without modifying saved playlists.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given an unavailable track in the queue, when its turn arrives, then the app reports the problem and allows skipping; it does not silently substitute an unverified source.
+      </div>
+     </article>
+     <article class="story" id="us-006">
+      <div class="id">
+       USER STORY &middot; US-006
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Handle player availability and end states
+       </h4>
+       <span class="tag should">
+        Should
+       </span>
+      </div>
+      <p>
+       As a listener, I want queue state to reflect track endings and player errors accurately.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a player ended event, when a track finishes, then the queue is updated and the next track is offered according to the current state.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given autoplay restrictions, when the app attempts automatic playback, then it requests a user gesture if required.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given a player that is not ready, when the Agent requests playback, then the action is not marked successful until the player confirms it.
+      </div>
+     </article>
+    </details>
+    <details class="epic" id="feature-003" open="">
+     <summary>
+      <div>
+       <span class="id">
+        FEATURE-003 &middot; 3 stories
+       </span>
+       <h3>
+        Music Preferences &amp; Listening Signals
+       </h3>
+       <div style="font-size:13px;color:var(--muted)">
+        Store explicitly provided listening preferences and user-approved interaction signals.
+       </div>
+      </div>
+     </summary>
+     <div class="meta">
+      <p>
+       <strong>
+        Business value:
+       </strong>
+       Enables controllable personalization without inventing preferences or inferring sensitive traits.
+      </p>
+      <div class="small-cols">
+       <div>
+        <strong>
+         In Scope
+        </strong>
+        <ul>
+         <li>
+          Manual artist, genre, and mood preferences
+         </li>
+         <li>
+          Likes, dislikes, and minimal listening history
+         </li>
+         <li>
+          Controls for remembering and deleting user data
+         </li>
+        </ul>
+       </div>
+       <div>
+        <strong>
+         Out of Scope
+        </strong>
+        <ul>
+         <li>
+          Unnecessary collection of sensitive data
+         </li>
+         <li>
+          Inferring mental health or other sensitive characteristics
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+     <article class="story" id="us-007">
+      <div class="id">
+       USER STORY &middot; US-007
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Set initial listening preferences
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a new listener, I want to choose favorite artists, genres, and moods so that the Agent can personalize its first suggestions.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a listener without a preference profile, when Preferences opens, then onboarding can be completed or skipped.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given at least one selected preference, when it is saved, then subsequent recommendation requests use that preference.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given no preferences or history, when recommendations are requested, then the Agent asks for criteria or provides clearly labeled general suggestions rather than claiming to know my tastes.
+      </div>
+     </article>
+     <article class="story" id="us-008">
+      <div class="id">
+       USER STORY &middot; US-008
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Like, dislike and favorite tracks
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a listener, I want to like or dislike music so that recommendations can adapt and my favorites can be saved.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a valid track, when I like or dislike it, then the feedback is stored against the correct track ID.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given a disliked track, when recommendations are generated, then that track is excluded by default unless I explicitly request it.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given existing feedback, when I change my rating, then the new feedback replaces the old without contradictory entries.
+      </div>
+     </article>
+     <article class="story" id="us-009">
+      <div class="id">
+       USER STORY &middot; US-009
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Listening history and privacy controls
+       </h4>
+       <span class="tag should">
+        Should
+       </span>
+      </div>
+      <p>
+       As a listener, I want to view, disable, and delete listening history to control my personal data.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given enabled history recording, when the player confirms a qualifying listen according to a configurable threshold, then a listening event is stored.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given disabled history recording, when a subsequent track plays, then no new listening event is stored.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given a confirmed history deletion request, when deletion finishes, then the relevant account/session history is removed and cannot be retrieved by the Agent.
+      </div>
+     </article>
+    </details>
+    <details class="epic" id="feature-004" open="">
+     <summary>
+      <div>
+       <span class="id">
+        FEATURE-004 &middot; 4 stories
+       </span>
+       <h3>
+        Single-Agent Conversational Orchestration
+       </h3>
+       <div style="font-size:13px;color:var(--muted)">
+        Understand Vietnamese and English requests, use tools, and maintain conversation state within a session.
+       </div>
+      </div>
+     </summary>
+     <div class="meta">
+      <p>
+       <strong>
+        Business value:
+       </strong>
+       Core Agentic AI engineering: intent routing, plan&ndash;act&ndash;observe, tool selection, and error recovery.
+      </p>
+      <div class="small-cols">
+       <div>
+        <strong>
+         In Scope
+        </strong>
+        <ul>
+         <li>
+          One LangGraph Agent with a tool registry
+         </li>
+         <li>
+          Intent detection: search, recommend, playlist, playback, and Q&amp;A
+         </li>
+         <li>
+          Clarification, action confirmation, and session state
+         </li>
+        </ul>
+       </div>
+       <div>
+        <strong>
+         Out of Scope
+        </strong>
+        <ul>
+         <li>
+          Multi-Agent orchestration in the MVP
+         </li>
+         <li>
+          Actions outside the allowed tool set
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+     <article class="story" id="us-010">
+      <div class="id">
+       USER STORY &middot; US-010
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Understand intent and route tools
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a listener, I want to chat in natural language so that the Agent can understand music search, recommendation, and playlist requests.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a clear request such as 'find songs by artist X', when the Agent acts, then it calls the search tool rather than inventing a list.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given 'add the track we just found to my Study playlist', when the Agent acts, then it references the correct track and playlist from session context.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given an unsupported request, when the Agent responds, then it states its limitations and does not pretend an action was completed.
+      </div>
+     </article>
+     <article class="story" id="us-011">
+      <div class="id">
+       USER STORY &middot; US-011
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Agent tool loop with grounded results
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a listener, I want the Agent to use actual music catalog results so that its actions and answers can be verified.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a request requiring provider data, when the Agent responds with specific tracks, then it must first obtain them through a tool result.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given a tool error, timeout, or empty result, when the Agent observes it, then it may retry using a bounded alternative strategy or ask for clarification; it must not fabricate track IDs.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given an Agent action, when the Agent responds, then it distinguishes completed actions, proposed actions, and unavailable actions.
+      </div>
+     </article>
+     <article class="story" id="us-012">
+      <div class="id">
+       USER STORY &middot; US-012
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Clarify ambiguous requests
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a listener, I want clarification when requests are ambiguous, rather than having the Agent act on the wrong track or playlist.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given multiple tracks with the same title by different artists, when 'play this one' is ambiguous, then the Agent presents options for confirmation.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given an unknown destination playlist, when a track-addition request arrives, then the Agent asks which playlist to use.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given a response to a clarification question, when the Agent continues, then it reuses the existing task state instead of restarting the whole task.
+      </div>
+     </article>
+     <article class="story" id="us-013">
+      <div class="id">
+       USER STORY &middot; US-013
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Manage agent context, budgets and safety
+       </h4>
+       <span class="tag should">
+        Should
+       </span>
+      </div>
+      <p>
+       As a user, I want the Agent to respond reliably, avoid infinite loops, and refrain from unintended actions.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a task, when the configured step or tool-call budget is exceeded, then the Agent stops safely and explains its current state.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given search metadata containing forged instructions, when it enters the Agent context, then it is treated as untrusted data rather than system instructions or tool authorization.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given a new session, when I start chatting, then prior session state is not leaked without permission.
+      </div>
+     </article>
+    </details>
+    <details class="epic" id="feature-005" open="">
+     <summary>
+      <div>
+       <span class="id">
+        FEATURE-005 &middot; 3 stories
+       </span>
+       <h3>
+        Personalized AI Recommendations
+       </h3>
+       <div style="font-size:13px;color:var(--muted)">
+        Recommend catalog-verified tracks from natural-language preferences and explain the recommendations.
+       </div>
+      </div>
+     </summary>
+     <div class="meta">
+      <p>
+       <strong>
+        Business value:
+       </strong>
+       AI research focus: candidate retrieval, preference-aware ranking, diversity, and recommendation evaluation.
+      </p>
+      <div class="small-cols">
+       <div>
+        <strong>
+         In Scope
+        </strong>
+        <ul>
+         <li>
+          Recommendations by mood, activity, genre, and artist
+         </li>
+         <li>
+          Remove disliked tracks and duplicates
+         </li>
+         <li>
+          Short explanations grounded in available metadata
+         </li>
+        </ul>
+       </div>
+       <div>
+        <strong>
+         Out of Scope
+        </strong>
+        <ul>
+         <li>
+          Analysis of copyrighted audio without authorization
+         </li>
+         <li>
+          Claiming to infer the user&rsquo;s actual emotional state
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+     <article class="story" id="us-014">
+      <div class="id">
+       USER STORY &middot; US-014
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Recommend music from natural-language goals
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a listener, I want to say 'recommend calm music for studying' and receive an appropriate track list.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a request containing mood, activity, or constraints, when the Agent processes it, then it generates candidate searches and retrieves tracks from the catalog.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given a provider without verified mood or tempo metadata, when explanations are generated, then the Agent does not assert specific musical properties such as BPM without evidence.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given recommendations, when they are displayed, then each track has a provider ID, title, artist, and Play/Add action.
+      </div>
+     </article>
+     <article class="story" id="us-015">
+      <div class="id">
+       USER STORY &middot; US-015
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Rank recommendations using preferences
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a listener, I want suggestions that consider my stated preferences and feedback history.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a profile with likes and dislikes, when tracks are ranked, then the scoring pipeline uses those signals and records its rationale in a trace.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given an identical candidate set and deterministic ranking fixture, when ranking is tested, then ordering remains stable within the configured tolerance or controlled random seed.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given duplicate provider video IDs in search results, when a top-N list is built, then it contains no duplicates.
+      </div>
+     </article>
+     <article class="story" id="us-016">
+      <div class="id">
+       USER STORY &middot; US-016
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Explain and refine recommendations
+       </h4>
+       <span class="tag should">
+        Should
+       </span>
+      </div>
+      <p>
+       As a listener, I want explanations for recommendations and the ability to refine the criteria.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a recommended track, when I ask 'why this one?', then the Agent grounds its answer in my request, explicit preferences, or available provider metadata.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given feedback such as 'less sad music', when the Agent revises the request, then it adjusts constraints and returns a new list.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given no candidates satisfying all constraints, when retrieval fails, then the Agent identifies unmet constraints and suggests reasonable relaxations.
+      </div>
+     </article>
+    </details>
+    <details class="epic" id="feature-006" open="">
+     <summary>
+      <div>
+       <span class="id">
+        FEATURE-006 &middot; 4 stories
+       </span>
+       <h3>
+        Playlist Library &amp; Agentic Playlist Editing
+       </h3>
+       <div style="font-size:13px;color:var(--muted)">
+        Let listeners manage playlists manually or ask the Agent to create and edit them through chat.
+       </div>
+      </div>
+     </summary>
+     <div class="meta">
+      <p>
+       <strong>
+        Business value:
+       </strong>
+       Provides observable, testable tool actions rather than chat-only recommendations.
+      </p>
+      <div class="small-cols">
+       <div>
+        <strong>
+         In Scope
+        </strong>
+        <ul>
+         <li>
+          In-app playlist create, read, update, and delete operations
+         </li>
+         <li>
+          Chat-generated playlists by theme or mood
+         </li>
+         <li>
+          Preview and confirmation before bulk edits
+         </li>
+        </ul>
+       </div>
+       <div>
+        <strong>
+         Out of Scope
+        </strong>
+        <ul>
+         <li>
+          Writing to third-party accounts without OAuth and necessary scopes
+         </li>
+         <li>
+          Unconfirmed automatic playlist changes
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+     <article class="story" id="us-017">
+      <div class="id">
+       USER STORY &middot; US-017
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Create and edit playlists manually
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a listener, I want to create, rename, delete, and edit playlists through a standard interface.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a valid playlist name, when I select Create, then one playlist with a unique ID is stored in the application.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given an existing playlist, when I add, remove, or reorder tracks, then the changes persist when the playlist is reopened.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given a playlist with tracks, when I request deletion, then the app asks for confirmation and does not remove those tracks from the music catalog.
+      </div>
+     </article>
+     <article class="story" id="us-018">
+      <div class="id">
+       USER STORY &middot; US-018
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Generate playlist with Agent
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a listener, I want to say 'make a playlist of 10 Vietnamese indie songs for evening study' and receive a usable playlist.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a topic and desired track count, when the Agent acts, then it retrieves candidate tracks and creates a previewable playlist draft.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given fewer eligible tracks than requested, when retrieval finishes, then the Agent reports the actual count rather than inventing tracks.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given user approval of the draft, when the creation tool succeeds, then the playlist is saved exactly once and the response includes its ID.
+      </div>
+     </article>
+     <article class="story" id="us-019">
+      <div class="id">
+       USER STORY &middot; US-019
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Modify playlists through chat
+       </h4>
+       <span class="tag should">
+        Should
+       </span>
+      </div>
+      <p>
+       As a listener, I want to ask 'remove duplicates, add five similar songs, and put slower songs first' to modify a playlist through chat.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a specific playlist, when the Agent prepares edits, then it shows a diff of additions, removals, and reorderings.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given a rejected diff, when the request ends, then the playlist remains unchanged.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given an approved diff, when changes are committed, then only authorized edits apply and the changes can be inspected in history.
+      </div>
+     </article>
+     <article class="story" id="us-020">
+      <div class="id">
+       USER STORY &middot; US-020
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Find and organize favorite playlists
+       </h4>
+       <span class="tag should">
+        Should
+       </span>
+      </div>
+      <p>
+       As a listener, I want to browse saved playlists and quickly open my favorites.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given stored playlists, when Library opens, then names, track counts, and last-update times are displayed.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given a playlist search term, when Library is filtered, then only matching playlists for the current user/session are returned.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given an empty library, when it opens, then an empty state offers Create or Ask Agent.
+      </div>
+     </article>
+    </details>
+    <details class="epic" id="feature-007" open="">
+     <summary>
+      <div>
+       <span class="id">
+        FEATURE-007 &middot; 3 stories
+       </span>
+       <h3>
+        Agent Evaluation &amp; Observability
+       </h3>
+       <div style="font-size:13px;color:var(--muted)">
+        Measure Agent task outcomes, recommendation quality, tool correctness, and failure recovery.
+       </div>
+      </div>
+     </summary>
+     <div class="meta">
+      <p>
+       <strong>
+        Business value:
+       </strong>
+       Makes the portfolio project demonstrably measurable rather than a subjective demo.
+      </p>
+      <div class="small-cols">
+       <div>
+        <strong>
+         In Scope
+        </strong>
+        <ul>
+         <li>
+          Ground-truth evaluation dataset
+         </li>
+         <li>
+          LLM traces and tool execution timeline
+         </li>
+         <li>
+          Baseline comparisons and regression tests
+         </li>
+        </ul>
+       </div>
+       <div>
+        <strong>
+         Out of Scope
+        </strong>
+        <ul>
+         <li>
+          Claiming quality improvements without benchmarks
+         </li>
+         <li>
+          Treating an LLM judge as the only ground truth
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+     <article class="story" id="us-021">
+      <div class="id">
+       USER STORY &middot; US-021
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Build reproducible Agent evaluation dataset
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As an AI Engineer, I want a labeled dataset of expected Agent behavior to test functionality and prevent regressions.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given at least 50 curated or synthetic scenarios, when evaluation runs, then each case specifies intent, constraints, expected tools/actions, and success criteria.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given ambiguous requests or provider failures, when cases are evaluated, then asking for clarification or failing safely may count as correct behavior.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given repeatable fixture, model, and configuration versions, when a report is generated, then their versions and random seeds (where applicable) are recorded for comparison.
+      </div>
+     </article>
+     <article class="story" id="us-022">
+      <div class="id">
+       USER STORY &middot; US-022
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Trace agent decisions and tool calls
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As an AI Engineer, I want to inspect Agent decisions and tool observations to debug failed or unexpected behavior.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given an Agent run, when it succeeds or fails, then the trace captures run ID, tool names, status, latency, and model usage if available.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given a tool failure, when its trace is inspected, then the error appears with secrets redacted.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given a user who has not agreed to storing chat text, when tracing is active, then sensitive text can be excluded or masked.
+      </div>
+     </article>
+     <article class="story" id="us-023">
+      <div class="id">
+       USER STORY &middot; US-023
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Compare baseline against Agent system
+       </h4>
+       <span class="tag should">
+        Should
+       </span>
+      </div>
+      <p>
+       As an AI Engineer, I want to compare an Agent with simpler search or LLM baselines and identify tasks where it adds value.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a common evaluation dataset, when baseline and Agent configurations run, then task success, tool accuracy, latency, and cost are compared.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given a playlist-editing scenario, when results are scored, then the final playlist state is checked instead of relying only on response wording.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given outcomes worse than baseline, when a report is generated, then it includes failure cases and does not claim the Agent performs better.
+      </div>
+     </article>
+    </details>
+    <details class="epic" id="feature-008" open="">
+     <summary>
+      <div>
+       <span class="id">
+        FEATURE-008 &middot; 3 stories
+       </span>
+       <h3>
+        Provider Integration, Reliability &amp; Privacy
+       </h3>
+       <div style="font-size:13px;color:var(--muted)">
+        Isolate music catalog and playback providers, control source failures, and protect personal information.
+       </div>
+      </div>
+     </summary>
+     <div class="meta">
+      <p>
+       <strong>
+        Business value:
+       </strong>
+       Reduces lock-in and the risks of unofficial endpoints while improving product reliability.
+      </p>
+      <div class="small-cols">
+       <div>
+        <strong>
+         In Scope
+        </strong>
+        <ul>
+         <li>
+          Interchangeable provider adapter interface
+         </li>
+         <li>
+          Rate limits, retries, and error classification
+         </li>
+         <li>
+          Privacy and deletion for user data
+         </li>
+        </ul>
+       </div>
+       <div>
+        <strong>
+         Out of Scope
+        </strong>
+        <ul>
+         <li>
+          Bypassing DRM, geo-restrictions, or advertising
+         </li>
+         <li>
+          Unauthorized stream ripping or audio caching
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+     <article class="story" id="us-024">
+      <div class="id">
+       USER STORY &middot; US-024
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Use an interchangeable music provider adapter
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a developer, I want to switch music catalog providers without modifying LangGraph or playlist logic.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a provider adapter, when search or get_track runs, then it returns a normalized object with track ID, provider, title, artists, and playback reference or availability.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given an unavailable provider, when search is attempted, then it produces a normalized error instead of fabricated metadata or audio from an unapproved source.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given an experimental InnerTube adapter, when the environment prohibits its use or the provider changes, then a feature flag can disable it; it is not the production default.
+      </div>
+     </article>
+     <article class="story" id="us-025">
+      <div class="id">
+       USER STORY &middot; US-025
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Handle API quota, timeout and retries
+       </h4>
+       <span class="tag should">
+        Should
+       </span>
+      </div>
+      <p>
+       As a listener, I want temporary provider failures to be explained and recoverable without losing my actions.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given a rate-limit or quota error, when it occurs, then the app shows a suitable message and uses bounded backoff for retries.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given a playlist-creation retry after a timeout, when a request is repeated, then an idempotency key prevents duplicate playlists.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given a source without supported playback, when I search for alternatives, then chat and playlists can still use legitimately available metadata.
+      </div>
+     </article>
+     <article class="story" id="us-026">
+      <div class="id">
+       USER STORY &middot; US-026
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+       <h4>
+        Control personal data and external actions
+       </h4>
+       <span class="tag must">
+        Must
+       </span>
+      </div>
+      <p>
+       As a listener, I want control over my preferences, history, and actions the Agent performs on my behalf.
+      </p>
+      <div class="id">
+       ACCEPTANCE CRITERIA
+      </div>
+      <div class="ac">
+       <strong>
+        AC1
+       </strong>
+       &mdash; Given an Agent-proposed bulk edit or destructive playlist change, when execution is requested, then explicit user confirmation is required.
+      </div>
+      <div class="ac">
+       <strong>
+        AC2
+       </strong>
+       &mdash; Given a personal-data deletion request, when processed, then the relevant preferences, feedback, history, and chat state are deleted from the system.
+      </div>
+      <div class="ac">
+       <strong>
+        AC3
+       </strong>
+       &mdash; Given a provider requiring OAuth, when it is connected, then only authorized official flows are used; the app does not store provider account passwords.
+      </div>
+     </article>
+    </details>
+    <h2 id="nfr">
+     2. Non-functional Requirements
+    </h2>
+    <p>
+     The priority levels and quality targets are proposed and must be validated in the target demo environment.
+    </p>
+    <table>
+     <tr>
+      <th>
+       ID
+      </th>
+      <th>
+       Area
+      </th>
+      <th>
+       Requirement
+      </th>
+      <th>
+       Priority
+      </th>
+     </tr>
+     <tr>
+      <td class="id">
+       NFR-001
+      </td>
+      <td>
+       Performance
+      </td>
+      <td>
+       Proposed test targets: cached local search p95 &lt;= 2 seconds and simple Agent tasks p95 &lt;= 12 seconds using stable fixtures/providers; report provider latency separately.
+      </td>
+      <td>
+       <span class="tag should">
+        Should
+       </span>
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       NFR-002
+      </td>
+      <td>
+       Agent Reliability
+      </td>
+      <td>
+       Limit each run to &lt;= 8 tool calls and a configurable timeout (suggested: 30 seconds for simple tasks); return a safe failure response rather than looping indefinitely.
+      </td>
+      <td>
+       <span class="tag must">
+        Must
+       </span>
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       NFR-003
+      </td>
+      <td>
+       Accuracy &amp; Grounding
+      </td>
+      <td>
+       100% of actionable track recommendations must include valid catalog/provider track IDs observed in tool responses during the request; do not invent playback availability.
+      </td>
+      <td>
+       <span class="tag must">
+        Must
+       </span>
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       NFR-004
+      </td>
+      <td>
+       Playlist Action Safety
+      </td>
+      <td>
+       Chat-based bulk additions, deletions, and reorderings must show a preview and confirmation before committing; verify idempotent commits.
+      </td>
+      <td>
+       <span class="tag must">
+        Must
+       </span>
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       NFR-005
+      </td>
+      <td>
+       Provider Compliance
+      </td>
+      <td>
+       Use only provider-authorized playback methods; do not download/cache audio, bypass advertising/DRM/geographic restrictions, hide required embeds, or fake unauthorized background playback.
+      </td>
+      <td>
+       <span class="tag must">
+        Must
+       </span>
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       NFR-006
+      </td>
+      <td>
+       Security
+      </td>
+      <td>
+       Keep API keys in server-side environment variables or a secret store; validate tool arguments; enforce tool allowlists and resist prompt injections in chat and metadata.
+      </td>
+      <td>
+       <span class="tag must">
+        Must
+       </span>
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       NFR-007
+      </td>
+      <td>
+       Privacy
+      </td>
+      <td>
+       Minimize stored history/chat; support deletion; do not infer sensitive personal attributes from listening history; redact sensitive log data.
+      </td>
+      <td>
+       <span class="tag must">
+        Must
+       </span>
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       NFR-008
+      </td>
+      <td>
+       Testability
+      </td>
+      <td>
+       Use Pytest unit/integration tests with mock music providers; run offline evaluations independently of live APIs and record dataset, prompt, and model versions.
+      </td>
+      <td>
+       <span class="tag must">
+        Must
+       </span>
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       NFR-009
+      </td>
+      <td>
+       Observability
+      </td>
+      <td>
+       Record run IDs, detected intents, tools, outcomes, latency, and token usage where available; do not expose secrets in traces.
+      </td>
+      <td>
+       <span class="tag should">
+        Should
+       </span>
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       NFR-010
+      </td>
+      <td>
+       Usability
+      </td>
+      <td>
+       Search bar and chat must be independent entry points; clearly distinguish suggestions/drafts from completed actions and provide empty, loading, and error states.
+      </td>
+      <td>
+       <span class="tag must">
+        Must
+       </span>
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       NFR-011
+      </td>
+      <td>
+       Portability
+      </td>
+      <td>
+       The demo must run with a local database and mock provider without copyrighted audio, with optional configuration for permitted live providers.
+      </td>
+      <td>
+       <span class="tag should">
+        Should
+       </span>
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       NFR-012
+      </td>
+      <td>
+       Accessibility
+      </td>
+      <td>
+       Support keyboard interaction for search, queue, playlists, and chat, including labeled controls and accessible player-status text.
+      </td>
+      <td>
+       <span class="tag should">
+        Should
+       </span>
+      </td>
+     </tr>
+    </table>
+    <h2 id="stack">
+     3. Candidate Tech Stack
+    </h2>
+    <p>
+     Candidate AI Engineering stack; music provider and credentials are not yet finalized.
+    </p>
+    <table>
+     <tr>
+      <th>
+       Layer
+      </th>
+      <th>
+       Choice
+      </th>
+      <th>
+       Purpose
+      </th>
+      <th>
+       Scope
+      </th>
+     </tr>
+     <tr>
+      <td>
+       AI Orchestration
+      </td>
+      <td>
+       <strong>
+        LangGraph + Pydantic
+       </strong>
+      </td>
+      <td>
+       Single-Agent graph, tool schemas, persistent session state
+      </td>
+      <td>
+       Core
+      </td>
+     </tr>
+     <tr>
+      <td>
+       LLM
+      </td>
+      <td>
+       <strong>
+        An LLM API supporting function calling and structured outputs
+       </strong>
+      </td>
+      <td>
+       Intent routing, planning, clarification, grounded responses
+      </td>
+      <td>
+       Core
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Recommendation
+      </td>
+      <td>
+       <strong>
+        Python scoring + metadata retrieval; optional embedding model
+       </strong>
+      </td>
+      <td>
+       Match query constraints, preference profile, and diversity
+      </td>
+      <td>
+       Core
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Music Search
+      </td>
+      <td>
+       <strong>
+        YouTube Data API (if YouTube is selected) / licensed catalog adapter
+       </strong>
+      </td>
+      <td>
+       Track metadata, canonical IDs, and availability
+      </td>
+      <td>
+       Core
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Playback
+      </td>
+      <td>
+       <strong>
+        YouTube IFrame Player API or another licensed playback source
+       </strong>
+      </td>
+      <td>
+       Provider-compliant playback and visible player UI
+      </td>
+      <td>
+       Core
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Backend
+      </td>
+      <td>
+       <strong>
+        FastAPI
+       </strong>
+      </td>
+      <td>
+       Minimal API for search adapters, Agent endpoint, and playlist operations
+      </td>
+      <td>
+       Core
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Frontend
+      </td>
+      <td>
+       <strong>
+        React + TypeScript + Vite
+       </strong>
+      </td>
+      <td>
+       Search, Chat, Player, Queue, Playlists, Preferences
+      </td>
+      <td>
+       Core
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Data Store
+      </td>
+      <td>
+       <strong>
+        SQLite initially; PostgreSQL if needed
+       </strong>
+      </td>
+      <td>
+       Local playlists, preferences, feedback, conversation/session IDs
+      </td>
+      <td>
+       Core
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Evaluation
+      </td>
+      <td>
+       <strong>
+        Pytest + curated fixtures; optional LangSmith/Langfuse
+       </strong>
+      </td>
+      <td>
+       Tool tests, task success, tracing, regression tests
+      </td>
+      <td>
+       Core
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Vector Search
+      </td>
+      <td>
+       <strong>
+        Qdrant / FAISS (only if semantic retrieval is justified)
+       </strong>
+      </td>
+      <td>
+       Semantic music candidate retrieval and search
+      </td>
+      <td>
+       Optional
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Provider Experiment
+      </td>
+      <td>
+       <strong>
+        Feature-flagged InnerTube adapter
+       </strong>
+      </td>
+      <td>
+       Research only; assess terms, stability, and permissions before use
+      </td>
+      <td>
+       Experimental
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Deployment
+      </td>
+      <td>
+       <strong>
+        Docker Compose (phase-dependent)
+       </strong>
+      </td>
+      <td>
+       Reproducible app and test setup
+      </td>
+      <td>
+       Optional
+      </td>
+     </tr>
+    </table>
+    <h2 id="eval">
+     4. AI Evaluation Strategy
+    </h2>
+    <div class="panel">
+     <h3>
+      Evaluation dataset
+     </h3>
+     <p>
+      At least 50 labeled tasks covering search, recommendation, playlist creation/editing, ambiguous requests, provider errors, and multi-turn context. Use a mock provider for reproducible testing.
+     </p>
+     <table>
+      <tr>
+       <th>
+        Metric
+       </th>
+       <th>
+        What to verify
+       </th>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Intent routing accuracy
+        </strong>
+       </td>
+       <td>
+        Whether the Agent chooses the correct intent/action category.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Tool selection / argument accuracy
+        </strong>
+       </td>
+       <td>
+        Whether the correct tool and arguments are selected, separating Agent errors from provider failures.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Task success rate
+        </strong>
+       </td>
+       <td>
+        Verify final playlist and queue states and valid catalog-backed recommendations.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Recommendation quality
+        </strong>
+       </td>
+       <td>
+        Recall/Precision@K when relevance labels exist; acceptance/save rates, diversity, and duplicate rates.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Grounded track rate
+        </strong>
+       </td>
+       <td>
+        Each recommended track has a verified ID returned by the catalog.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Clarification correctness
+        </strong>
+       </td>
+       <td>
+        Ambiguous requests trigger clarification rather than incorrect playlist changes.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Safety / approval rate
+        </strong>
+       </td>
+       <td>
+        No destructive or bulk playlist action is committed without confirmation.
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Latency &amp; token cost
+        </strong>
+       </td>
+       <td>
+        P50/P95 latency and token usage per task, compared against baselines.
+       </td>
+      </tr>
+     </table>
+     <p>
+      <strong>
+       Baselines:
+      </strong>
+      (A) keyword search + fixed filters; (B) LLM query rewriting + search; (C) LangGraph Agent with tools, state and feedback. Do not claim that C is superior without measured evidence.
+     </p>
+    </div>
+    <h2 id="risks">
+     5. Open Questions, Assumptions &amp; Risks
+    </h2>
+    <table>
+     <tr>
+      <th>
+       ID
+      </th>
+      <th>
+       Topic
+      </th>
+      <th>
+       Question
+      </th>
+      <th>
+       Recommendation
+      </th>
+     </tr>
+     <tr>
+      <td>
+       Q1
+      </td>
+      <td>
+       <strong>
+        Music provider
+       </strong>
+      </td>
+      <td>
+       Official YouTube Data + IFrame Player, another licensed catalog, or an experimental InnerTube adapter?
+      </td>
+      <td>
+       Block public-release decisions until permitted usage is confirmed; use an approved adapter for the MVP.
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Q2
+      </td>
+      <td>
+       <strong>
+        Data storage
+       </strong>
+      </td>
+      <td>
+       Guest browser/local session or user accounts?
+      </td>
+      <td>
+       Use a guest local profile in the MVP; add authentication later.
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Q3
+      </td>
+      <td>
+       <strong>
+        Playlist scope
+       </strong>
+      </td>
+      <td>
+       Store playlists inside the app or synchronize with provider accounts?
+      </td>
+      <td>
+       Store locally first; external synchronization requires suitable OAuth/scopes.
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Q4
+      </td>
+      <td>
+       <strong>
+        Recommendation signals
+       </strong>
+      </td>
+      <td>
+       Stated preferences, listening history, metadata, or embeddings?
+      </td>
+      <td>
+       Start with explicit preferences, feedback, and metadata; evaluate embeddings later.
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Q5
+      </td>
+      <td>
+       <strong>
+        Languages
+       </strong>
+      </td>
+      <td>
+       Should chat prioritize Vietnamese, English, or both?
+      </td>
+      <td>
+       Support Vietnamese and English inputs; evaluate Vietnamese independently.
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Q6
+      </td>
+      <td>
+       <strong>
+        AI success criteria
+       </strong>
+      </td>
+      <td>
+       Prioritize tool correctness or recommendation quality?
+      </td>
+      <td>
+       Measure both, with separate benchmarks for playlist actions and recommendations.
+      </td>
+     </tr>
+    </table>
+    <div class="note">
+     <strong>
+      Music provider compliance:
+     </strong>
+     An InnerTube adapter may be explored in a feature-flagged research environment, but the public demo should not depend on it. Search and playback must use authorized sources/APIs. Provider content is external data, not system instructions.
+    </div>
+    <h2 id="roadmap">
+     6. Delivery Phases (Proposed)
+    </h2>
+    <table>
+     <tr>
+      <th>
+       Phase
+      </th>
+      <th>
+       Title
+      </th>
+      <th>
+       Exit criteria
+      </th>
+     </tr>
+     <tr>
+      <td class="id">
+       Phase 0
+      </td>
+      <td>
+       Feasibility &amp; Scope
+      </td>
+      <td>
+       Verify permitted search and playback providers; prepare mock catalog; assess relevant YouTube APIs; finalize MVP and evaluation scenarios.
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       Phase 1
+      </td>
+      <td>
+       Music Fundamentals
+      </td>
+      <td>
+       F001 search, metadata, playback, and queue; basic playlist CRUD; fixture provider.
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       Phase 2
+      </td>
+      <td>
+       Agent Core
+      </td>
+      <td>
+       LangGraph intent routing; search and playlist tools; clarification, preview/confirmation, and session state.
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       Phase 3
+      </td>
+      <td>
+       Personalization
+      </td>
+      <td>
+       Preference profile, likes/dislikes, recommendation ranking, explanation, cold-start handling.
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       Phase 4
+      </td>
+      <td>
+       Evaluation &amp; Portfolio
+      </td>
+      <td>
+       At least 50 curated tasks; baseline versus Agent; tool accuracy, traces, README, and demo video.
+      </td>
+     </tr>
+     <tr>
+      <td class="id">
+       Phase 5
+      </td>
+      <td>
+       Optional Extensions
+      </td>
+      <td>
+       Semantic retrieval and reranking, MCP adapters, advanced memory, and authorized OAuth playlist imports.
+      </td>
+     </tr>
+    </table>
+    <h2>
+     7. References &amp; Decisions
+    </h2>
+    <div class="panel">
+     <p>
+      <strong>
+       Template reference:
+      </strong>
+      The user-provided &ldquo;CV Evaluation System &mdash; Requirements&rdquo; and &ldquo;AI Recruitment Matching Engine &mdash; Requirements Summary&rdquo; served as structural references. This document retains Feature &rarr; User Story &rarr; Acceptance Criteria (Given/When/Then) and omits diagrams.
+     </p>
+     <p>
+      <strong>
+       Technical references:
+      </strong>
+      <a href="https://github.com/realidkroo/Mochy-Music">
+       Mochy-Music
+      </a>
+      (product/UI reference only; not evidence of music playback rights) &middot;
+      <a href="https://developers.google.com/youtube/iframe_api_reference">
+       YouTube IFrame API
+      </a>
+      &middot;
+      <a href="https://developers.google.com/youtube/terms/developer-policies">
+       YouTube API Services Developer Policies
+      </a>
+      .
+     </p>
+     <p>
+      <strong>
+       Status:
+      </strong>
+      Draft; the user has not formally approved features, scope, or proposed NFR thresholds.
+     </p>
+    </div>
+    <div class="foot">
+     MusicMind requirements v0.1 &middot; No diagrams &middot; Original project requirements proposal
+    </div>
+   </main>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+*.egg-info/
+.coverage
+# JS / frontend
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+# local databases, user data and secrets
+.env
+.env.local
+*.sqlite
+*.sqlite3
+*.db
+# generated outputs
+reports/
+.DS_Store
+.idea/
+.vscode/
